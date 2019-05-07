@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <link rel="stylesheet" href="main.css">
+  </head>
+  <header>
+      <h1 align="center">Rock Paper Scissors Lizard Spock</h1>
+  </header>
+<body>     
+    <section id='usernameInput'>
+        <form>
+            Username:<br>
+            <input type="text" id="username" name="firstname"><br>
+        </form>
+        <button onclick="enterUsername()">Enter</button><br>
+    </section>
+
+    <form>
+        Pick Opponent:<br>
+        <input type="text" id="opponent" name="firstname"><br>
+    </form>
+    <button onclick="pickOpponent()">Enter</button><br>
+
+    
+        <input type="radio" name="hand" id="myRadio" value="rock">Rock<br>
+        <input type="radio" name="hand" id="myRadio" value="paper">Paper<br>
+        <input type="radio" name="hand" id="myRadio" value="scissors">Scissors<br>
+        <input type="radio" name="hand" id="myRadio" value="lizard">Lizard<br>
+        <input type="radio" name="hand" id="myRadio" value="spock">Spock<br>
+    
+    <button id="pickButton" onclick="pickHand()">Pick Hand</button>
+    
+
+<audio id="myAudio">
+  <source src="ahem_x.wav" type="audio/wav">
+  Your browser does not support the audio element.
+</audio>
+
+<p>Click the buttons to play or pause the audio.</p>
+
+<button onclick="playAudio()" type="button">Play Audio</button>
+<button onclick="pauseAudio()" type="button">Pause Audio</button> 
+
+<div align='left' style="margin-left: 3em">
+  <h2>Log</h2>
+  <ul id="myLog" class="logContainer"></ul>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/5.11.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBgTejOd_mijva2NDNOkUcQ_4Kms0quipM",
+    authDomain: "rpslsonline-370c8.firebaseapp.com",
+    databaseURL: "https://rpslsonline-370c8.firebaseio.com",
+    projectId: "rpslsonline-370c8",
+    storageBucket: "rpslsonline-370c8.appspot.com",
+    messagingSenderId: "970381431085"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script>
+var x = document.getElementById("myAudio"); 
+function playAudio() 
+{ 
+  x.play(); 
+} 
+function pauseAudio() 
+{ 
+  x.pause(); 
+} 
+</script>
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
