@@ -1,45 +1,79 @@
 <!DOCTYPE html>
 <html>
   <head>
+      <meta name="viewport" content="initial-scale=1.0">
+      <meta charset="utf-8">
       <link rel="stylesheet" href="main.css">
   </head>
   <header>
       <h1 align="center">Rock Paper Scissors Lizard Spock</h1>
+      <h2 align="center">How to Play</h2>
+      <img class="center" src="instructions.png">
   </header>
-<body>     
+<body style="background-color:lavender">   
+    
+    <section id="how2play">
+      <h2>Instructions for game setup</h2>
+      <ol>
+        <li>Enter username</li>
+        <li>Wait for a friend to enter in their username.</li>
+        <li>Get your friend's username by texting them.</li>
+        <li>Enter your friend's name into the opponent box.</li>
+        <li>Note: Only one friend needs to enter into the opponent box.</li>
+        <li>A game will now be initiated between you.</li>
+        <li>Note: Do not click a hand until you have selected an opponent.</li>
+        <li>If there are errors, both of you should refresh the page and retry from step 1.</li>
+      </ol>
+    </section>
     <section id='usernameInput'>
         <form>
             Username:<br>
-            <input type="text" id="username" name="firstname"><br>
+            <input type="text" id="username" name="firstname">
         </form>
-        <button onclick="enterUsername()">Enter</button><br>
+        <button onclick="enterUsername()">Enter Username</button><br>
     </section>
 
     <form>
         Pick Opponent:<br>
-        <input type="text" id="opponent" name="firstname"><br>
+        <input type="text" id="opponent" name="firstname">
     </form>
-    <button onclick="pickOpponent()">Enter</button><br>
+    <button onclick="pickOpponent()">Enter Opponent</button><br>
 
-    
-        <input type="radio" name="hand" id="myRadio" value="rock">Rock<br>
-        <input type="radio" name="hand" id="myRadio" value="paper">Paper<br>
-        <input type="radio" name="hand" id="myRadio" value="scissors">Scissors<br>
-        <input type="radio" name="hand" id="myRadio" value="lizard">Lizard<br>
-        <input type="radio" name="hand" id="myRadio" value="spock">Spock<br>
-    
-    <button id="pickButton" onclick="pickHand()">Pick Hand</button>
-    
+    <div class="row">
+      <div class="column">
+        <img src="rock.png" alt="Snow" onclick="pickImage('rock')" id="rock" value="rock">
+      </div>
+      <div class="column">
+        <img src="paper.png" alt="Forest" onclick="pickImage('paper')" id="paper" value="paper">
+      </div>
+      <div class="column">
+        <img src="scissors.jpg" alt="Mountains"  onclick="pickImage('scissors')" id="scissors" value="scissors">
+      </div>
+      <div class="column">
+        <img src="lizard.jpg" alt="Mountains"  onclick="pickImage('lizard')" id="lizard" value="lizard">
+      </div>
+      <div class="column">
+        <img src="spock.jpg" alt="Mountains"  onclick="pickImage('spock')" id="spock" value="spock">
+      </div>
+    </div>
 
+    <section id="stats">
+      <h3 id="wins">Wins: </h3>
+      <h3 id="ties">Ties: </h3>
+      <h3 id="losses">Losses: </h3>
+    </section>
+    
 <audio id="myAudio">
   <source src="ahem_x.wav" type="audio/wav">
   Your browser does not support the audio element.
 </audio>
-
-<p>Click the buttons to play or pause the audio.</p>
-
-<button onclick="playAudio()" type="button">Play Audio</button>
-<button onclick="pauseAudio()" type="button">Pause Audio</button> 
+<audio id="rockfx"><source src="rockSound.wav" type="audio/wav"></audio>
+<audio id="paperfx"><source src="paperSound.wav" type="audio/wav"></audio>
+<audio id="scissorsfx"><source src="scissorsSound.wav" type="audio/wav"></audio>
+<audio id="lizardfx"><source src="lizardSound.wav" type="audio/wav"></audio>
+<audio id="spockfx"><source src="spockSound.wav" type="audio/wav"></audio>
+<audio id="losefx"><source src="loseSound.wav" type="audio/wav"></audio>
+<audio id="winfx"><source src="winSound.wav" type="audio/wav"></audio>
 
 <div align='left' style="margin-left: 3em">
   <h2>Log</h2>
@@ -58,18 +92,6 @@
     messagingSenderId: "970381431085"
   };
   firebase.initializeApp(config);
-</script>
-
-<script>
-var x = document.getElementById("myAudio"); 
-function playAudio() 
-{ 
-  x.play(); 
-} 
-function pauseAudio() 
-{ 
-  x.pause(); 
-} 
 </script>
 <script type="text/javascript" src="main.js"></script>
 </body>

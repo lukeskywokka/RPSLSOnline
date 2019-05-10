@@ -1,5 +1,55 @@
+.row 
+{
+    display: flex;
+}
+  
+.column 
+{
+    flex: 20%;
+    padding: 5px;
+}
+
 .logContainer
 {
     overflow-y: scroll;
     height: 100px;
+}
+
+.input_hidden 
+{
+    position: absolute;
+    left: -9999px;
+}
+
+.selected 
+{
+    background-color: #ccc;
+}
+
+#radios label 
+{
+    display: inline-block;
+    cursor: pointer;
+}
+
+#radios label img 
+{
+    padding: 3px;
+}
+
+.row img 
+{
+    object-fit: cover;
+    width:200px;
+    height:200px;
+}
+
+.center 
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    height: 300px;
+    padding-bottom: 1em;
 }
