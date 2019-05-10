@@ -14,7 +14,7 @@ var clickEnabled = 0;
 var errorCounter = 0;
 var bothP = 0;
 firebase.database().ref("/Active/" + myUsername).set(null);
-firebase.database().ref("Game/").set(null);
+// firebase.database().ref("Game/").set(null);
 
 function enableImageClick()
 {
