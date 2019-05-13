@@ -9,9 +9,15 @@ admin.initializeApp();
 //  response.send("Hello from Firebase!");
 // });
 
-// Listens for new messages added to /messages/:pushId/original and creates an
-// uppercase version of the message to /messages/:pushId/uppercase
+/*
+- Params
+    * a is a hand
+    * b is a hand
+- Objective
+    * Return which hand should win
 
+*/
+// this function was more or less copied from our C++ RPS game
 function getWinner(a, b)
 {
     console.log("Determining Winner...");
@@ -70,6 +76,7 @@ function getWinner(a, b)
     return winner;
 }
 
+// globalWinner is unused
 var globalWinner = "n";
 exports.getWinner = functions.database.ref('/Game/{gameID}/{user}/status').onWrite((change, context) => {
     console.log("func triggered");
@@ -90,9 +97,7 @@ exports.getWinner = functions.database.ref('/Game/{gameID}/{user}/status').onWri
         });
     }
     */
-    
-    
-    
+     
     var getOpponent = "";
     var getStatus = change.after.val();
     var getOpponentStatus = "";
@@ -115,6 +120,7 @@ exports.getWinner = functions.database.ref('/Game/{gameID}/{user}/status').onWri
         getOppHand = mySnap.hand;
     });
 
+    // logs to see what I am getting
     console.log("My name: " + username);
     console.log("Opp name: " + getOpponent);
     console.log("My status: " + getStatus);
@@ -126,6 +132,8 @@ exports.getWinner = functions.database.ref('/Game/{gameID}/{user}/status').onWri
     if (getOpponentStatus != "np" && getStatus != "np")
     {
         winAvail = "y";
+
+        // compute winner with the function above
         const winner = getWinner(getHand, getOppHand);
         globalWinner = winner;
         console.log("Winner is: " + winner);
@@ -148,13 +156,14 @@ exports.getWinner = functions.database.ref('/Game/{gameID}/{user}/status').onWri
         msg = "Winner is " + winner + "!";
         // msgCopy = "Winner Available!";
 
-        
+        // update opponent with the winner message
         admin.database().ref("Game/" + getGameID + "/" + getOpponent + "/msgBoard").update({
             winner : winnerName,
             winnerAvailable : winAvail,
             message : msg
         });
 
+        // update whoever triggered the function with the winner message
         admin.database().ref("Game/" + getGameID + "/" + username + "/msgBoard").update({
             winner : winnerName,
             winnerAvailable : winAvail,
@@ -179,15 +188,13 @@ exports.getWinner = functions.database.ref('/Game/{gameID}/{user}/status').onWri
         msg = "!";
         msgCopy = "none";
         console.log("Both haven't played yet...");
+
+        // if a winner is not available, the msg is '!'
         return admin.database().ref("Game/" + getGameID + "/" + username + "/msgBoard").update({
             winner : winnerName,
             winnerAvailable : winAvail,
             message : "!"
         });
     }
-
-    // You must return a Promise when performing asynchronous tasks inside a Functions such as
-    // writing to the Firebase Realtime Database.
     // return snapshot.ref.parent.child('uppercase').set(uppercase);
-    
 });

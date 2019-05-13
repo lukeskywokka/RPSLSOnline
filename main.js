@@ -13,9 +13,10 @@ var interval;
 var clickEnabled = 0;
 var errorCounter = 0;
 var bothP = 0;
-firebase.database().ref("/Active/" + myUsername).set(null);
+// firebase.database().ref("/Active/" + myUsername).set(null);
 // firebase.database().ref("Game/").set(null);
 
+// Allows user to click a hand
 function enableImageClick()
 {
     console.log("Enabling Image clicks...");
@@ -41,8 +42,9 @@ function sleep(milliseconds)
             break;
         }
     }
-  }
+}
 
+// the observer for the enter username button on the html
 function enterUsername()
 {
     var usernameInput = document.getElementById('username').value;
@@ -57,6 +59,7 @@ function enterUsername()
     enableImageClick();
 }
 
+// makes the random game ID to be stored in Firebase
 function makeid(length) 
 {
     var result           = '';
@@ -126,10 +129,11 @@ function pickImage(aHand)
         });
     } 
 
-    // now begin to look at firebase every 5s
+    // now begin to look at firebase every 2s
     interval = setInterval(checkForUpdates, 2000);
 }
 
+// observer for the enter opponent button on the html
 function pickOpponent()
 {
     // get the input from the html
@@ -172,15 +176,16 @@ function pickOpponent()
     logIt(myUsername + " wants to play with " + myOpponent);
 }
 
+// vars for checkForUpdates()
 var lastMsg = "";
 var winnerQ = 0;
 var snaps = "e";
+
+// gets called in pickImage()
 function checkForUpdates()
 {
-    
-    // console.log("Checking for updates...");
+    // grabs the most recent snapshot of the db on this path
     firebase.database().ref("Game/" + getGame + "/" + myUsername + "/msgBoard/message").on("value", function(snapshot){
-        
         snaps = snapshot.val();
         console.log(myUsername + " " + snaps);
 
@@ -203,6 +208,7 @@ function checkForUpdates()
             status : "np"
         });
         
+        // if your hand is in the message, you won!
         if (snaps.includes(myHand))
         {
             wins += 1;
@@ -227,7 +233,7 @@ function checkForUpdates()
     }
     errorCounter += 1;
 
-    // both are stuck on p
+    // a sync error occurred and this fixes it
     if (errorCounter >= 5)
     {
         console.log("inside error fixer!")
@@ -236,26 +242,16 @@ function checkForUpdates()
         firebase.database().ref("Game/" + getGame + "/" + myOpponent).update({
             status : "e"
         });
+        errorCounter = 0;
     }
 }
 
-// messages
+// messages for the log
 function logIt(msg)
 {
-    var newLog = document.createElement("li");       // Create a <li> node
+    var newLog = document.createElement("li");      // Create a <li> node
     var txt = document.createTextNode(msg);
-    newLog.appendChild(txt);                    // Append the text to <li>
+    newLog.appendChild(txt);                        // Append the text to <li>
     var list = document.getElementById("myLog");    // Get the <ul> element to insert a new node
     list.insertBefore(newLog, list.childNodes[0]);  // Insert <li> before the first child of <ul>
-}
-
-// unused
-function uncheckBoxes()
-{
-    var radios = document.getElementsByName('hand');
-    for (var i = 0, length = radios.length; i < length; i++)
-    {
-        radios[i].disabled = false;
-    }
-    document.getElementById('pickButton').disabled = false;
 }
